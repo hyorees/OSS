@@ -79,12 +79,19 @@ header {
 }
 
 .calendar td.selected {
-    background: #ffe0b2;
+    background: none;
     font-weight: bold;
+    border: none;
+    text-decoration: underline;
+    color: #90caf9;
+}
+
+.calendar td.selected .mood-icon{
+    display: inline-block;
 }
 
 .calendar td.has-mood {
-    border: 2px solid #90caf9;
+    border: none;
 }
 
 .mood-select {
@@ -182,4 +189,32 @@ header {
     color: #e57373;
     font-size: 1.2em;
     cursor: pointer;
+}
+
+.calendar td {
+    position: relative; /* 위치를 상대적으로 설정하여 아래에 아이콘을 표시 */
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.calendar tr{
+    height: 60px;
+}
+
+.mood-icon {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5em; /* 아이콘 크기 */
+    display: none; /* 기본적으로 아이콘은 보이지 않게 */
+}
+
+/* 기분이 있는 날짜에는 아이콘을 보이도록 설정 */
+.calendar td.has-mood .mood-icon {
+    display: block;
 }

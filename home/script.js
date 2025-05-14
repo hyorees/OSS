@@ -28,7 +28,11 @@ function renderCalendar() {
                 let classes = [];
                 if (formatDate(selectedDate) === dateStr) classes.push('selected');
                 if (moods[dateStr]) classes.push('has-mood');
-                html += `<td class="${classes.join(' ')}" data-date="${dateStr}">${day}</td>`;
+                html += `<td class="${classes.join(' ')}" data-date="${dateStr}">${day}`;
+                if(moods[dateStr]){
+                    html += `<span class="mood-icon">${getMoodIcon(moods[dateStr])}</span>`;
+                }
+                html += `</td>`;
             }
         }
         html += '</tr>';
@@ -47,12 +51,35 @@ function renderCalendar() {
     });
 }
 
+function getMoodIcon(mood){
+    switch(mood){
+        case 'happy':
+            return '😊';
+        case 'sad':
+            return '😢';
+        case 'angry':
+            return '😠';
+        case 'neutral':
+            return '😐';
+        case 'tired':
+            return '🥱';
+        case 'smile':
+            return '😁';
+        default:
+            return '';
+    }
+}
+
 function renderMood() {
     const dateStr = formatDate(selectedDate);
     document.querySelectorAll('.mood-select span').forEach(span => {
         span.classList.toggle('selected', moods[dateStr] === span.dataset.mood);
         span.onclick = () => {
-            moods[dateStr] = span.dataset.mood;
+            if (moods[dateStr] === span.dataset.mood){
+                delete moods[dateStr];
+            } else{
+                moods[dateStr] = span.dataset.mood;
+            }
             localStorage.setItem('moods', JSON.stringify(moods));
             renderCalendar();
             renderMood();
