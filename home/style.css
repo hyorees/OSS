@@ -10,6 +10,7 @@ body {
     max-width: 1200px;
     margin: 30px auto;
     gap: 30px;
+    flex-wrap: wrap;
 }
 
 .calendar-section,
@@ -21,13 +22,21 @@ body {
 }
 
 .calendar-section {
-    flex: 2;
+    flex: 2 1 600px;
     min-width: 400px;
+    padding: 24px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px #0001;
 }
 
 .todo-section {
-    flex: 1;
+    flex: 1 1 350px;
     min-width: 300px;
+    padding: 24px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px #0001;
 }
 
 header {
@@ -175,6 +184,10 @@ header {
     gap: 8px;
     padding: 6px 0;
     border-bottom: 1px solid #eee;
+    justify-content: space-between;
+}
+#todoList li span {
+    flex: 1; /* 텍스트가 공간을 차지하게 */
 }
 
 #todoList li.completed span {
@@ -183,16 +196,15 @@ header {
 }
 
 #todoList li button {
-    margin-left: auto;
     background: none;
     border: none;
-    color: #e57373;
     font-size: 1.2em;
     cursor: pointer;
+    color: #64b5f6;
+    margin-left: 4px;
 }
-
 .calendar td {
-    position: relative; /* 위치를 상대적으로 설정하여 아래에 아이콘을 표시 */
+    position: relative; 
     width: 40px;
     height: 40px;
     text-align: center;
@@ -210,11 +222,183 @@ header {
     bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 1.5em; /* 아이콘 크기 */
-    display: none; /* 기본적으로 아이콘은 보이지 않게 */
+    font-size: 1.5em; 
+    display: none; 
 }
 
 /* 기분이 있는 날짜에는 아이콘을 보이도록 설정 */
 .calendar td.has-mood .mood-icon {
     display: block;
+}
+
+/*추가*/
+#todoList li span {
+    font-size: 1em;
+    margin-right: 8px;
+}
+
+#todoList li span span {
+    font-size: 0.8em;
+    color: #888;
+}
+#categorySelect {
+    padding: 4px 10px;
+    border-radius: 20px; 
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    font-size: 0.7em;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+
+#categorySelect:hover,
+#categorySelect:focus {
+    background-color: #e3f2fd;
+    border-color: #90caf9; 
+}
+
+
+#categorySelect option {
+    border-radius: 10px;
+    padding: 8px;
+    background-color: #fafafa;
+    transition: background-color 0.3s ease;
+}
+
+
+#categorySelect option:hover {
+    background-color: #90caf9;
+    color: #fff;
+}
+
+.category-section {
+    margin-bottom: 20px;
+}
+
+#categoryTodoContainer {
+    margin-top: 20px;
+}
+.category-todo {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.category-todo h3 {
+    margin-bottom: 10px;
+}
+
+.category-todo input[type="text"] {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 80%;
+}
+
+.category-todo button {
+    padding: 6px 16px;
+    border-radius: 8px;
+    background: #90caf9;
+    color: white;
+    cursor: pointer;
+}
+
+.category-todo ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.category-todo ul li {
+    padding: 5px 0;
+}
+/* 할일 입력 칸 스타일 */
+#todoInput {
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 12px;
+    border: 1px solid #a1b6ef;
+    background-color: #fcfdfe;
+    font-size: 0.7em;
+    color: #6499bf;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+}
+
+
+#todoInput:focus {
+    border-color: #4a92ce; 
+    box-shadow: 0 0 8px rgba(144, 202, 249, 0.5); 
+    outline: none;
+}
+
+
+#todoInput:active {
+    background-color: #65a8db; 
+}
+
+
+#todoInput:not(:placeholder-shown) {
+    background-color: #ffffff;
+}
+
+
+#todoInput::placeholder {
+    color: #888;
+    font-style: italic;
+    transition: opacity 0.3s ease;
+}
+
+#todoInput:focus::placeholder {
+    opacity: 0.5; 
+}
+#newCategoryInput {
+    flex: 1;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #a1b6ef;
+    font-size: 0.9em;
+    background-color: #ffffff;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+#newCategoryInput:focus {
+    border-color: #4a92ce;
+    box-shadow: 0 0 6px rgba(74, 146, 206, 0.3);
+    outline: none;
+}
+#addNewCategoryButton {
+    padding: 5px 10px;
+    background-color: #90caf9;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+#addNewCategoryButton:hover {
+    background-color: #64b5f6;
+}
+#addNewCategoryButton:active {
+    background-color: #42a5f5;
+}
+#addTodo {
+    padding: 5px 10px;
+    background-color: #90caf9;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+#addTodo:hover {
+    background-color: #64b5f6;
+}
+#addTodo:active {
+    background-color: #42a5f5;
 }
