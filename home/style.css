@@ -402,3 +402,29 @@ header {
 #addTodo:active {
     background-color: #42a5f5;
 }
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.tab {
+    padding: 6px 16px;
+    border: 1px solid #90caf9;
+    border-radius: 20px;
+    background-color: #f0f8ff;
+    color: #42a5f5;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab:hover {
+    background-color: #e3f2fd;
+}
+
+.tab.active {
+    background-color: #90caf9;
+    color: white;
+    box-shadow: 0 2px 6px rgba(144, 202, 249, 0.3);
+}
