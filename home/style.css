@@ -3,27 +3,101 @@ body {
     background: #fafafa;
     margin: 0;
     padding: 0;
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    min-width: 200px;
+    max-width: 400px;
+    height: 100vh;
+    background: white;
+    border-right: 1px solid #eee;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    resize: horizontal;
+    overflow: auto;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.profile-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    margin-right: 15px;
+}
+
+.profile-name {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+}
+
+.friends-section {
+    margin-top: 20px;
+}
+
+.friends-section h3 {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+.friend-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.friend-item {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.friend-item:hover {
+    background-color: #f5f5f5;
+}
+
+.friend-profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    margin-right: 12px;
+}
+
+.friend-name {
+    font-size: 0.9em;
+    color: #333;
 }
 
 .container {
+    margin-left: 300px;
+    margin-right: 100px;
+    padding: 30px;
     display: flex;
-    max-width: 1200px;
-    margin: 30px auto;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-
-.calendar-section,
-.todo-section {
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 2px 8px #0001;
-    padding: 24px;
+    gap: 50px;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    max-width: calc(100vw - 400px);
 }
 
 .calendar-section {
     flex: 2 1 600px;
     min-width: 400px;
+    max-width: 620px;
     padding: 24px;
     background: #fff;
     border-radius: 16px;
@@ -31,12 +105,13 @@ body {
 }
 
 .todo-section {
-    flex: 1 1 350px;
-    min-width: 300px;
-    padding: 24px;
+    flex: 1;
+    min-width: 320px;
+    max-width: 400px;
     background: #fff;
     border-radius: 16px;
     box-shadow: 0 2px 8px #0001;
+    padding: 24px;
 }
 
 header {
@@ -85,6 +160,26 @@ header {
     text-align: center;
     border-radius: 8px;
     cursor: pointer;
+    padding: 5px;
+    position: relative; /* 위치를 상대적으로 설정하여 아래에 아이콘을 표시 */
+}
+
+.calendar tr {
+    height: 60px;
+}
+
+.mood-icon {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5em; /* 아이콘 크기 */
+    display: none; /* 기본적으로 아이콘은 보이지 않게 */
+}
+
+/* 기분이 있는 날짜에는 아이콘을 보이도록 설정 */
+.calendar td.has-mood .mood-icon {
+    display: block;
 }
 
 .calendar td.selected {
@@ -93,10 +188,6 @@ header {
     border: none;
     text-decoration: underline;
     color: #90caf9;
-}
-
-.calendar td.selected .mood-icon{
-    display: inline-block;
 }
 
 .calendar td.has-mood {
@@ -149,28 +240,128 @@ header {
     margin-top: 0;
 }
 
-.todo-input {
+.tabs {
     display: flex;
-    gap: 8px;
-    margin-bottom: 10px;
+    gap: 10px;
+    margin-bottom: 16px;
 }
 
-.todo-input input {
-    flex: 1;
-    padding: 6px 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
-
-.todo-input button {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    border: none;
-    background: #90caf9;
-    color: #fff;
-    font-size: 1.5em;
+.tab {
+    padding: 6px 16px;
+    border: 1px solid #90caf9;
+    border-radius: 20px;
+    background-color: #f0f8ff;
+    color: #42a5f5;
+    font-weight: bold;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab:hover {
+    background-color: #e3f2fd;
+}
+
+.tab.active {
+    background-color: #90caf9;
+    color: white;
+    box-shadow: 0 2px 6px rgba(144, 202, 249, 0.3);
+}
+
+/* 할일 입력 칸 스타일 */
+#todoInput {
+    margin-top: 15px;
+    width: 85%;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #a1b6ef;
+    font-size: 0.9em;
+    background-color: #ffffff;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#categorySelect {
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    font-size: 0.7em;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#categorySelect:hover,
+#categorySelect:focus {
+    background-color: #e3f2fd;
+    border-color: #90caf9;
+}
+
+#categorySelect option {
+    border-radius: 10px;
+    padding: 8px;
+    background-color: #fafafa;
+    transition: background-color 0.3s ease;
+}
+
+#categorySelect option:hover {
+    background-color: #90caf9;
+    color: #fff;
+}
+
+#newCategoryInput {
+    flex: 1;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #a1b6ef;
+    font-size: 0.9em;
+    background-color: #ffffff;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#newCategoryInput:focus {
+    border-color: #4a92ce;
+    box-shadow: 0 0 6px rgba(74, 146, 206, 0.3);
+    outline: none;
+}
+
+#addNewCategoryButton {
+    padding: 5px 10px;
+    background-color: #90caf9;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#addNewCategoryButton:hover {
+    background-color: #64b5f6;
+}
+
+#addNewCategoryButton:active {
+    background-color: #42a5f5;
+}
+
+#addTodo {
+    padding: 5px 10px;
+    background-color: #90caf9;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#addTodo:hover {
+    background-color: #64b5f6;
+}
+
+#addTodo:active {
+    background-color: #42a5f5;
 }
 
 #todoList {
@@ -181,13 +372,14 @@ header {
 #todoList li {
     display: flex;
     align-items: center;
-    gap: 8px;
     padding: 6px 0;
     border-bottom: 1px solid #eee;
     justify-content: space-between;
 }
+
 #todoList li span {
-    flex: 1; /* 텍스트가 공간을 차지하게 */
+    flex: 1;
+    margin-left: 8px;
 }
 
 #todoList li.completed span {
@@ -203,74 +395,21 @@ header {
     color: #64b5f6;
     margin-left: 4px;
 }
-.calendar td {
-    position: relative; 
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    border-radius: 8px;
-    cursor: pointer;
-    padding: 5px;
-}
 
-.calendar tr{
-    height: 60px;
-}
-
-.mood-icon {
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.5em; 
-    display: none; 
-}
-
-/* 기분이 있는 날짜에는 아이콘을 보이도록 설정 */
-.calendar td.has-mood .mood-icon {
-    display: block;
-}
-
-/*추가*/
-#todoList li span {
-    font-size: 1em;
+/* Add specific styles for edit and delete buttons */
+#todoList li button:first-of-type {
     margin-right: 8px;
 }
 
-#todoList li span span {
-    font-size: 0.8em;
-    color: #888;
-}
-#categorySelect {
-    padding: 4px 10px;
-    border-radius: 20px; 
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-    font-size: 0.7em;
-    color: #555;
-    cursor: pointer;
-    transition: all 0.3s ease;
+#todoList li button:last-of-type {
+    color: #e57373;
 }
 
-
-#categorySelect:hover,
-#categorySelect:focus {
-    background-color: #e3f2fd;
-    border-color: #90caf9; 
-}
-
-
-#categorySelect option {
-    border-radius: 10px;
-    padding: 8px;
-    background-color: #fafafa;
-    transition: background-color 0.3s ease;
-}
-
-
-#categorySelect option:hover {
-    background-color: #90caf9;
-    color: #fff;
+/* Add hover effect for buttons */
+#todoList li button:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+    transition: all 0.2s ease;
 }
 
 .category-section {
@@ -280,6 +419,7 @@ header {
 #categoryTodoContainer {
     margin-top: 20px;
 }
+
 .category-todo {
     margin-bottom: 20px;
     padding: 10px;
@@ -314,117 +454,4 @@ header {
 
 .category-todo ul li {
     padding: 5px 0;
-}
-/* 할일 입력 칸 스타일 */
-#todoInput {
-    width: 100%;
-    padding: 5px 10px;
-    border-radius: 12px;
-    border: 1px solid #a1b6ef;
-    background-color: #fcfdfe;
-    font-size: 0.7em;
-    color: #6499bf;
-    margin-bottom: 16px;
-    transition: all 0.3s ease;
-}
-
-
-#todoInput:focus {
-    border-color: #4a92ce; 
-    box-shadow: 0 0 8px rgba(144, 202, 249, 0.5); 
-    outline: none;
-}
-
-
-#todoInput:active {
-    background-color: #65a8db; 
-}
-
-
-#todoInput:not(:placeholder-shown) {
-    background-color: #ffffff;
-}
-
-
-#todoInput::placeholder {
-    color: #888;
-    font-style: italic;
-    transition: opacity 0.3s ease;
-}
-
-#todoInput:focus::placeholder {
-    opacity: 0.5; 
-}
-#newCategoryInput {
-    flex: 1;
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: 1px solid #a1b6ef;
-    font-size: 0.9em;
-    background-color: #ffffff;
-    color: #333;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-#newCategoryInput:focus {
-    border-color: #4a92ce;
-    box-shadow: 0 0 6px rgba(74, 146, 206, 0.3);
-    outline: none;
-}
-#addNewCategoryButton {
-    padding: 5px 10px;
-    background-color: #90caf9;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-#addNewCategoryButton:hover {
-    background-color: #64b5f6;
-}
-#addNewCategoryButton:active {
-    background-color: #42a5f5;
-}
-#addTodo {
-    padding: 5px 10px;
-    background-color: #90caf9;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-#addTodo:hover {
-    background-color: #64b5f6;
-}
-#addTodo:active {
-    background-color: #42a5f5;
-}
-.tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 16px;
-}
-
-.tab {
-    padding: 6px 16px;
-    border: 1px solid #90caf9;
-    border-radius: 20px;
-    background-color: #f0f8ff;
-    color: #42a5f5;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.tab:hover {
-    background-color: #e3f2fd;
-}
-
-.tab.active {
-    background-color: #90caf9;
-    color: white;
-    box-shadow: 0 2px 6px rgba(144, 202, 249, 0.3);
 }
