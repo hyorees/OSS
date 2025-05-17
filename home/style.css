@@ -256,9 +256,15 @@ header {
 #todoList li {
     display: flex;
     align-items: center;
-    gap: 8px;
     padding: 6px 0;
     border-bottom: 1px solid #eee;
+}
+
+#todoList li span {
+    flex: 1;
+    /* This will make the text span take up all available space */
+    margin-left: 8px;
+    /* Space after checkbox */
 }
 
 #todoList li.completed span {
@@ -267,12 +273,28 @@ header {
 }
 
 #todoList li button {
-    margin-left: auto;
     background: none;
     border: none;
-    color: #e57373;
     font-size: 1.2em;
     cursor: pointer;
+}
+
+/* Add specific styles for edit and delete buttons */
+#todoList li button:first-of-type {
+    margin-right: 8px;
+    /* Add space between edit and delete buttons */
+}
+
+#todoList li button:last-of-type {
+    color: #e57373;
+    /* Keep the red color for delete button */
+}
+
+/* Add hover effect for buttons */
+#todoList li button:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+    transition: all 0.2s ease;
 }
 
 .calendar td {
