@@ -29,7 +29,7 @@ function renderCalendar() {
                 if (formatDate(selectedDate) === dateStr) classes.push('selected');
                 if (moods[dateStr]) classes.push('has-mood');
                 html += `<td class="${classes.join(' ')}" data-date="${dateStr}">${day}`;
-                if(moods[dateStr]){
+                if (moods[dateStr]) {
                     html += `<span class="mood-icon">${getMoodIcon(moods[dateStr])}</span>`;
                 }
                 html += `</td>`;
@@ -51,8 +51,8 @@ function renderCalendar() {
     });
 }
 
-function getMoodIcon(mood){
-    switch(mood){
+function getMoodIcon(mood) {
+    switch (mood) {
         case 'happy':
             return '😊';
         case 'sad':
@@ -75,9 +75,9 @@ function renderMood() {
     document.querySelectorAll('.mood-select span').forEach(span => {
         span.classList.toggle('selected', moods[dateStr] === span.dataset.mood);
         span.onclick = () => {
-            if (moods[dateStr] === span.dataset.mood){
+            if (moods[dateStr] === span.dataset.mood) {
                 delete moods[dateStr];
-            } else{
+            } else {
                 moods[dateStr] = span.dataset.mood;
             }
             localStorage.setItem('moods', JSON.stringify(moods));
@@ -96,10 +96,16 @@ function renderTodos() {
     const dateStr = formatDate(selectedDate);
     const list = todos[dateStr] || [];
     const ul = document.getElementById('todoList');
+    const activeCategory = document.querySelector('.tab.active').dataset.category;
+
     ul.innerHTML = '';
     list.forEach((item, idx) => {
+        // 전체가 아닐 때만 카테고리 필터링
+        if (activeCategory && activeCategory !== '' && item.category !== activeCategory) return;
+
         const li = document.createElement('li');
         if (item.done) li.classList.add('completed');
+
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = item.done;
@@ -108,8 +114,59 @@ function renderTodos() {
             localStorage.setItem('todos', JSON.stringify(todos));
             renderTodos();
         };
+
         const span = document.createElement('span');
         span.textContent = item.text;
+
+        // 카테고리 표시
+        if (item.category) {
+            const categorySpan = document.createElement('span');
+            let categoryText = '';
+            switch (item.category) {
+                case 'work': categoryText = ' 🏫'; break;
+                case 'personal': categoryText = ' 🙎‍♀️'; break;
+                case 'exercise': categoryText = ' 🏊'; break;
+                case 'shopping': categoryText = ' 🛒'; break;
+            }
+            categorySpan.textContent = categoryText;
+            categorySpan.style.fontSize = '0.9em';
+            span.appendChild(categorySpan);
+        }
+
+        const editBtn = document.createElement('button');
+        editBtn.textContent = '✏️';
+        editBtn.onclick = () => {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = item.text;
+            input.style.flex = '1';
+
+            const handleClickOutside = (e) => {
+                if (!input.contains(e.target)) {
+                    item.text = input.value;
+                    localStorage.setItem('todos', JSON.stringify(todos));
+                    renderTodos();
+                    document.removeEventListener('click', handleClickOutside);
+                }
+            };
+
+            input.onkeydown = (e) => {
+                if (e.key === 'Enter') {
+                    item.text = input.value;
+                    localStorage.setItem('todos', JSON.stringify(todos));
+                    renderTodos();
+                    document.removeEventListener('click', handleClickOutside);
+                }
+            };
+
+            li.replaceChild(input, span);
+            input.focus();
+
+            setTimeout(() => {
+                document.addEventListener('click', handleClickOutside);
+            }, 0);
+        };
+
         const delBtn = document.createElement('button');
         delBtn.textContent = '🗑️';
         delBtn.onclick = () => {
@@ -118,8 +175,10 @@ function renderTodos() {
             localStorage.setItem('todos', JSON.stringify(todos));
             renderTodos();
         };
+
         li.appendChild(checkbox);
         li.appendChild(span);
+        li.appendChild(editBtn);
         li.appendChild(delBtn);
         ul.appendChild(li);
     });
@@ -148,13 +207,53 @@ document.getElementById('saveMemo').onclick = () => {
 document.getElementById('addTodo').onclick = () => {
     const dateStr = formatDate(selectedDate);
     const input = document.getElementById('todoInput');
+    const category = document.getElementById('categorySelect').value;
+
     if (!input.value.trim()) return;
+
+    // 기본 할 일 목록 추가
     if (!todos[dateStr]) todos[dateStr] = [];
-    todos[dateStr].push({ text: input.value, done: false });
+    todos[dateStr].push({
+        text: input.value,
+        done: false,
+        category: category  // 카테고리 정보 저장
+    });
+
     localStorage.setItem('todos', JSON.stringify(todos));
     input.value = '';
     renderTodos();
 };
+
+// 탭 클릭 이벤트
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        // 활성 탭 변경
+        document.querySelector('.tab.active').classList.remove('active');
+        tab.classList.add('active');
+
+        // 카테고리 선택 변경
+        const category = tab.dataset.category;
+        document.getElementById('categorySelect').value = category;
+
+        // 할 일 목록 필터링 및 표시
+        renderTodos();
+    });
+});
+
+// 카테고리 선택 변경 이벤트
+document.getElementById('categorySelect').addEventListener('change', function () {
+    const selectedCategory = this.value;
+    const todoInput = document.getElementById('todoInput');
+    const newCategoryDiv = document.getElementById('newCategoryDiv');
+
+    if (selectedCategory === 'new') {
+        newCategoryDiv.style.display = 'block';
+        todoInput.style.display = 'none';
+    } else {
+        newCategoryDiv.style.display = 'none';
+        todoInput.style.display = 'block';
+    }
+});
 
 document.getElementById('todoInput').addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {

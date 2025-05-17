@@ -7,8 +7,30 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-
 <body>
+    <div class="sidebar">
+        <div class="profile-section">
+            <div class="profile-image"></div>
+            <div class="profile-name">My Profile</div>
+        </div>
+        <div class="friends-section">
+            <h3>Friends</h3>
+            <div class="friend-list">
+                <div class="friend-item">
+                    <div class="friend-profile"></div>
+                    <div class="friend-name">박효연</div>
+                </div>
+                <div class="friend-item">
+                    <div class="friend-profile"></div>
+                    <div class="friend-name">심민서</div>
+                </div>
+                <div class="friend-item">
+                    <div class="friend-profile"></div>
+                    <div class="friend-name">정주영</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <section class="calendar-section">
             <header>
@@ -51,9 +73,29 @@
         </section>
         <section class="todo-section">
             <h2>오늘의 할일</h2>
-            <div class="todo-input">
-                <input type="text" id="todoInput" placeholder="할 일을 입력하세요">
+            <div class="tabs">
+                <button class="tab active" data-category="">전체</button>
+                <button class="tab" data-category="work">🏫</button>
+                <button class="tab" data-category="personal">🙎‍♀️</button>
+                <button class="tab" data-category="exercise">🏊</button>
+                <button class="tab" data-category="shopping">🛒</button>
+            </div>
+            <div class="category-section">
+                <label for="categorySelect">카테고리 선택:</label>
+                <select id="categorySelect">
+                    <option value="">기본</option>
+                    <option value="work">🏫 학교</option>
+                    <option value="personal">🙎‍♀️ 개인</option>
+                    <option value="exercise">🏊 운동</option>
+                    <option value="shopping">🛒 쇼핑</option>
+                    <option value="new">새 카테고리 만들기</option>
+                </select>
                 <button id="addTodo">+</button>
+                <div id="newCategoryDiv" style="display: none;">
+                    <input type="text" id="newCategoryInput" placeholder="새 카테고리 이름을 입력하세요">
+                    <button id="addNewCategoryButton">카테고리 추가</button>
+                </div>
+                <input type="text" id="todoInput" placeholder="할 일을 입력하세요">
             </div>
             <ul id="todoList"></ul>
         </section>
