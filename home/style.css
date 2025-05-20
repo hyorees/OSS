@@ -1,6 +1,6 @@
 body {
     font-family: 'Noto Sans KR', sans-serif;
-    background: #fafafa;
+    background: white;
     margin: 0;
     padding: 0;
     display: flex;
@@ -11,7 +11,11 @@ body {
     min-width: 200px;
     max-width: 400px;
     height: 100vh;
-    background: white;
+    background-color: rgba(37, 113, 69, 0.9);
+    background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
     border-right: 1px solid #eee;
     padding: 20px;
     position: fixed;
@@ -19,6 +23,7 @@ body {
     top: 0;
     resize: horizontal;
     overflow: auto;
+    box-shadow: 3px 0 15px rgba(0,0,0,0.15);
 }
 
 .profile-section {
@@ -32,14 +37,14 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #e0e0e0;
+    background-color: white;
     margin-right: 15px;
 }
 
 .profile-name {
     font-size: 1.1em;
     font-weight: bold;
-    color: #333;
+    color: white;
 }
 
 .friends-section {
@@ -47,7 +52,7 @@ body {
 }
 
 .friends-section h3 {
-    color: #666;
+    color: white;
     font-size: 0.9em;
     margin-bottom: 15px;
 }
@@ -80,7 +85,7 @@ body {
 
 .friend-name {
     font-size: 0.9em;
-    color: #333;
+    color: white;
 }
 
 .container {
@@ -88,31 +93,50 @@ body {
     margin-right: 100px;
     padding: 30px;
     display: flex;
-    gap: 50px;
+    gap: 30px;
     flex-wrap: nowrap;
     justify-content: flex-start;
     max-width: calc(100vw - 400px);
+    position: relative;
 }
-
+.calendar-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 120px;
+        background: url('https://cdn.pixabay.com/photo/2017/08/30/10/30/leaf-2696948_1280.png')
+          center / cover no-repeat;
+        border-radius: 16px 16px 0 0;
+        opacity: 0.2;
+        pointer-events: none;
+        z-index: 0;
+}
 .calendar-section {
+    position: relative;
+    padding-top: 140px;
     flex: 2 1 600px;
     min-width: 400px;
     max-width: 620px;
     padding: 24px;
-    background: #fff;
+    background: white;
     border-radius: 16px;
-    box-shadow: 0 2px 8px #0001;
+    box-shadow: 0 8px 15px rgba(0, 100, 0, 0.2);
+    border: 2px solid #547b64;
 }
 
 .todo-section {
-    flex: 1;
-    min-width: 320px;
+    flex: 1.5;
+    min-width: 600px;
     max-width: 400px;
-    background: #fff;
+    background: #ffffff;
     border-radius: 16px;
-    box-shadow: 0 2px 8px #0001;
+    box-shadow: 0 8px 15px rgba(0, 80, 0, 0.25);
     padding: 24px;
+    border: 2px solid #547b64;
 }
+
 
 header {
     display: flex;
@@ -145,15 +169,35 @@ header {
     align-items: center;
     gap: 16px;
     margin: 20px 0 10px 0;
+    background-color: white;
+    border-radius: 12px; /* 모서리 둥글게 */
+    padding: 5px;       /* 내부 여백 추가하면 더 예쁨 */
+    color: rgb(1, 53, 5);        /* 글자색 대비용 */
+    
 }
+
 
 .calendar {
     width: 100%;
     border-collapse: collapse;
+    border: 2px solid #547b64;
     margin-bottom: 10px;
+    border-radius: 12px;       /* 모서리 둥글게 */
+    overflow: hidden;  
+    font-family: 'Noto Sans KR', sans-serif;
+    
+    
 }
 
-.calendar th,
+.calendar th {
+    background-color: #547b64; /* 진한 초록 */
+    color: white;
+    font-weight: bold;
+    padding: 8px 0;
+    
+    
+}
+
 .calendar td {
     width: 40px;
     height: 40px;
@@ -161,7 +205,25 @@ header {
     border-radius: 8px;
     cursor: pointer;
     padding: 5px;
-    position: relative; /* 위치를 상대적으로 설정하여 아래에 아이콘을 표시 */
+    position: relative;
+    transition: background-color 0.3s, color 0.3s;
+    color: #2e7d32; /* 어두운 초록 */
+}
+
+.calendar td:hover {
+    background-color: #8faa99; /* 진한 초록 */
+    color: #000801; /* 더 진한 초록 */
+}
+
+.calendar td.selected {
+    background-color: #388e3c; /* 선택된 날짜 진한 초록 */
+    color: white;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.calendar td.has-mood .mood-icon {
+    color: #055209; /* 아이콘도 초록 계열 */
 }
 
 .calendar tr {
@@ -173,7 +235,7 @@ header {
     bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 1.5em; /* 아이콘 크기 */
+    font-size: 1em; /* 아이콘 크기 */
     display: none; /* 기본적으로 아이콘은 보이지 않게 */
 }
 
@@ -187,7 +249,7 @@ header {
     font-weight: bold;
     border: none;
     text-decoration: underline;
-    color: #90caf9;
+    color: #00360e;
 }
 
 .calendar td.has-mood {
@@ -208,7 +270,7 @@ header {
 
 .mood-select span.selected {
     transform: scale(1.2);
-    background: #e3f2fd;
+    background: white;
     border-radius: 50%;
 }
 
@@ -219,7 +281,7 @@ header {
 .memo-section textarea {
     width: 100%;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #113c08;
     padding: 8px;
     resize: vertical;
 }
@@ -230,7 +292,7 @@ header {
     padding: 6px 16px;
     border-radius: 8px;
     border: none;
-    background: #90caf9;
+    background: #0e4a38;
     color: #fff;
     font-weight: bold;
     cursor: pointer;
@@ -239,7 +301,11 @@ header {
 .todo-section h2 {
     margin-top: 0;
 }
-
+.todo-section h2::before {
+  content: "🌱";
+  font-size: 1em;
+  margin-right: 8px;
+}
 .tabs {
     display: flex;
     gap: 10px;
@@ -248,34 +314,38 @@ header {
 
 .tab {
     padding: 6px 16px;
-    border: 1px solid #90caf9;
+    border: none;
     border-radius: 20px;
-    background-color: #f0f8ff;
-    color: #42a5f5;
+    background: linear-gradient(135deg, #81c784, #4caf50);
+    color: white;
     font-weight: bold;
     cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 80, 0, 0.3);
     transition: all 0.3s ease;
 }
 
+
 .tab:hover {
-    background-color: #e3f2fd;
+  transform: scale(1.05) translateZ(10px);
+  box-shadow: 0 8px 20px rgba(0, 100, 0, 0.7);
+  transition: all 0.3s ease;
 }
 
 .tab.active {
-    background-color: #90caf9;
+    background: linear-gradient(135deg, #388e3c, #2e7d32);
+    box-shadow: 0 5px 10px rgba(0, 100, 0, 0.6);
     color: white;
-    box-shadow: 0 2px 6px rgba(144, 202, 249, 0.3);
 }
 
 /* 할일 입력 칸 스타일 */
 #todoInput {
     margin-top: 15px;
     width: 85%;
-    padding: 5px 10px;
+    padding: 3px 10px;
     border-radius: 5px;
-    border: 1px solid #a1b6ef;
+    border: 1px solid #547b64;
     font-size: 0.9em;
-    background-color: #ffffff;
+    background-color: #ddd3d3;
     color: #333;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -284,7 +354,7 @@ header {
     padding: 4px 10px;
     border-radius: 20px;
     border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    background-color: white;
     font-size: 0.7em;
     color: #555;
     cursor: pointer;
@@ -293,10 +363,10 @@ header {
 
 #categorySelect:hover,
 #categorySelect:focus {
-    background-color: #e3f2fd;
-    border-color: #90caf9;
+    background-color: #e3f7eb;
+    border-color: #abc4b6;
 }
-
+sss
 #categorySelect option {
     border-radius: 10px;
     padding: 8px;
@@ -305,7 +375,7 @@ header {
 }
 
 #categorySelect option:hover {
-    background-color: #90caf9;
+    background-color: #98dfb4;
     color: #fff;
 }
 
@@ -313,7 +383,7 @@ header {
     flex: 1;
     padding: 5px 10px;
     border-radius: 5px;
-    border: 1px solid #a1b6ef;
+    border: 1px solid #2a4c36;
     font-size: 0.9em;
     background-color: #ffffff;
     color: #333;
@@ -321,14 +391,14 @@ header {
 }
 
 #newCategoryInput:focus {
-    border-color: #4a92ce;
+    border-color: #274e2e;
     box-shadow: 0 0 6px rgba(74, 146, 206, 0.3);
     outline: none;
 }
 
 #addNewCategoryButton {
     padding: 5px 10px;
-    background-color: #90caf9;
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
     border: none;
     border-radius: 8px;
     color: white;
@@ -338,16 +408,16 @@ header {
 }
 
 #addNewCategoryButton:hover {
-    background-color: #64b5f6;
+    background: linear-gradient(135deg, #66bb6a, #388e3c);
 }
 
 #addNewCategoryButton:active {
-    background-color: #42a5f5;
+    background: linear-gradient(135deg, #388e3c, #1b4d1b);
 }
 
 #addTodo {
     padding: 5px 10px;
-    background-color: #90caf9;
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
     border: none;
     border-radius: 8px;
     color: white;
@@ -357,11 +427,11 @@ header {
 }
 
 #addTodo:hover {
-    background-color: #64b5f6;
+    background: linear-gradient(135deg, #66bb6a, #388e3c);
 }
 
 #addTodo:active {
-    background-color: #42a5f5;
+    background: linear-gradient(135deg, #388e3c, #1b4d1b);
 }
 
 #todoList {
@@ -392,7 +462,7 @@ header {
     border: none;
     font-size: 1.2em;
     cursor: pointer;
-    color: #64b5f6;
+    color: #547b64;
     margin-left: 4px;
 }
 
@@ -425,7 +495,7 @@ header {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: #fafafa;
+    background-color: #ceb7b7;
 }
 
 .category-todo h3 {
@@ -442,7 +512,7 @@ header {
 .category-todo button {
     padding: 6px 16px;
     border-radius: 8px;
-    background: #90caf9;
+    background: #7aa18b;
     color: white;
     cursor: pointer;
 }
@@ -455,3 +525,5 @@ header {
 .category-todo ul li {
     padding: 5px 0;
 }
+
+

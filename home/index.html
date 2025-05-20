@@ -31,7 +31,6 @@
             </div>
         </div>
     </div>
-
     <div class="container">
         <section class="calendar-section">
             <header>
@@ -72,17 +71,15 @@
                 <button id="saveMemo">저장</button>
             </div>
         </section>
-
         <section class="todo-section">
             <h2>오늘의 할일</h2>
             <div class="tabs">
-                <button class="tab active" data-category="all">전체</button>
+                <button class="tab active" data-category="">전체</button>
                 <button class="tab" data-category="work">🏫</button>
                 <button class="tab" data-category="personal">🙎‍♀️</button>
                 <button class="tab" data-category="exercise">🏊</button>
                 <button class="tab" data-category="shopping">🛒</button>
             </div>
-
             <div class="category-section">
                 <label for="categorySelect">카테고리 선택:</label>
                 <select id="categorySelect">
@@ -100,109 +97,10 @@
                 </div>
                 <input type="text" id="todoInput" placeholder="할 일을 입력하세요">
             </div>
-
-            <div id="custom-category-sections"></div>
             <ul id="todoList"></ul>
         </section>
     </div>
-
     <script src="script.js"></script>
-    <script>
-        const categorySelect = document.getElementById("categorySelect");
-        const newCategoryDiv = document.getElementById("newCategoryDiv");
-        const newCategoryInput = document.getElementById("newCategoryInput");
-        const addNewCategoryButton = document.getElementById("addNewCategoryButton");
-        const todoInput = document.getElementById("todoInput");
-        const addTodoBtn = document.getElementById("addTodo");
-        const todoList = document.getElementById("todoList");
-        const tabs = document.querySelectorAll(".tab");
-
-        let todos = [];
-
-        // 카테고리 선택 시 새 카테고리 입력창 제어
-        categorySelect.addEventListener("change", () => {
-            if (categorySelect.value === "new") {
-                newCategoryDiv.style.display = "block";
-                todoInput.style.display = "none";
-            } else {
-                newCategoryDiv.style.display = "none";
-                todoInput.style.display = "block";
-            }
-        });
-
-        // 새 카테고리 추가 버튼 클릭 시
-        addNewCategoryButton.addEventListener("click", () => {
-            const newCategoryName = newCategoryInput.value.trim();
-            if (!newCategoryName) return;
-
-            const newOption = document.createElement("option");
-            newOption.value = newCategoryName;
-            newOption.textContent = newCategoryName;
-
-            categorySelect.insertBefore(newOption, categorySelect.lastElementChild);
-            categorySelect.value = newCategoryName;
-
-            newCategoryDiv.style.display = "none";
-            newCategoryInput.value = "";
-            todoInput.style.display = "block";
-        });
-
-        // 할 일 추가 버튼
-        addTodoBtn.addEventListener("click", () => {
-            const text = todoInput.value.trim();
-            const category = categorySelect.value || "default";
-            if (text === "") return;
-
-            todos.push({ text, category, completed: false });
-            todoInput.value = "";
-            renderTodos(getActiveCategory());
-        });
-
-        // 탭 클릭 이벤트
-        tabs.forEach(tab => {
-            tab.addEventListener("click", () => {
-                document.querySelector(".tab.active").classList.remove("active");
-                tab.classList.add("active");
-                renderTodos(tab.dataset.category);
-            });
-        });
-
-        function getActiveCategory() {
-            return document.querySelector(".tab.active").dataset.category;
-        }
-
-        function renderTodos(filter) {
-            todoList.innerHTML = "";
-            const filtered = filter === "all" ? todos : todos.filter(t => t.category === filter);
-
-            filtered.forEach((todo, index) => {
-                const li = document.createElement("li");
-                li.className = todo.completed ? "completed" : "";
-
-                li.innerHTML = `
-                    <span>${todo.text}</span>
-                    <div>
-                        <button onclick="toggleComplete(${index})">✔️</button>
-                        <button onclick="deleteTodo(${index})">🗑️</button>
-                    </div>
-                `;
-                todoList.appendChild(li);
-            });
-        }
-
-        window.toggleComplete = function(index) {
-            todos[index].completed = !todos[index].completed;
-            renderTodos(getActiveCategory());
-        };
-
-        window.deleteTodo = function(index) {
-            todos.splice(index, 1);
-            renderTodos(getActiveCategory());
-        };
-
-        // 초기 렌더
-        renderTodos("all");
-    </script>
 </body>
 
 </html>
