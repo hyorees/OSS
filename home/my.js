@@ -1,7 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
   const profileBtn = document.getElementById('updateProfileBtn');
   const logoutBtn = document.getElementById('logoutBtn');
+  const sidebarUserName = document.getElementById('sidebarUserName');
+  const profileNameInput = document.getElementById('name');
 
+  function loadProfile() {
+    const savedName = localStorage.getItem('profile_name') || '';
+    const savedEmail = localStorage.getItem('profile_email') || '';
+    const savedPhone = localStorage.getItem('profile_phone') || '';
+
+    profileNameInput.value = savedName;
+    document.getElementById('email').value = savedEmail;
+    document.getElementById('phone').value = savedPhone;
+
+    
+    if (savedName) {
+      sidebarUserName.textContent = savedName;
+    }
+  }
+
+  loadProfile();
   profileBtn.addEventListener('click', () => {
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
@@ -17,7 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('올바른 이메일 주소를 입력해 주세요.');
       return;
     }
+    localStorage.setItem('profile_name', name);
+    localStorage.setItem('profile_email', email);
+    localStorage.setItem('profile_phone', phone);
 
+    sidebarUserName.textContent = name;
+    
     alert(`프로필이 수정되었습니다.\n이름: ${name}\n이메일: ${email}\n전화번호: ${phone}`);
 
     // 서버에 수정 요청을 보낼 경우 여기서 처리
