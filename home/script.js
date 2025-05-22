@@ -28,6 +28,9 @@ function renderCalendar() {
                 let classes = [];
                 if (formatDate(selectedDate) === dateStr) classes.push('selected');
                 if (moods[dateStr]) classes.push('has-mood');
+                const currentDate = new Date(year, month, day);
+                const dayOfWeek = currentDate.getDay();
+                if(dayOfWeek === 0) classes.push('sunday');
                 html += `<td class="${classes.join(' ')}" data-date="${dateStr}">${day}`;
                 if (moods[dateStr]) {
                     html += `<span class="mood-icon">${getMoodIcon(moods[dateStr])}</span>`;
@@ -136,32 +139,50 @@ function renderTodos() {
         const editBtn = document.createElement('button');
         editBtn.textContent = '✏️';
         editBtn.onclick = () => {
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.value = item.text;
-            input.style.flex = '1';
-
+            const editContainer = document.createElement('div');
+            editContainer.style.display = 'flex';
+            editContainer.style.gap = '5px';
+            editContainer.style.flex = '1';
+            
+            const textInput = document.createElement('input');
+            textInput.type = 'text';
+            textInput.value = item.text;
+            textInput.style.flex = '1';
+            
+            const categorySelect = document.createElement('select');
+            categorySelect.innerHTML = `
+                <option value="">기본</option>
+                <option value="work">🏫 학교</option>
+                <option value="personal">🙎‍♀️ 개인</option>
+                <option value="exercise">🏊 운동</option>
+                <option value="shopping">🛒 쇼핑</option>
+            `;
+            categorySelect.value = item.category || '';
+            categorySelect.style.fontSize = '0.8em';
+            
+            const saveChanges = () => {
+                item.text = textInput.value;
+                item.category = categorySelect.value;
+                localStorage.setItem('todos', JSON.stringify(todos));
+                renderTodos();
+            };
+            
+            textInput.onkeydown = (e) => {
+                if (e.key === 'Enter') saveChanges();
+            };
+            
+            editContainer.appendChild(textInput);
+            editContainer.appendChild(categorySelect);
+            li.replaceChild(editContainer, span);
+            textInput.focus();
+            
             const handleClickOutside = (e) => {
-                if (!input.contains(e.target)) {
-                    item.text = input.value;
-                    localStorage.setItem('todos', JSON.stringify(todos));
-                    renderTodos();
+                if (!editContainer.contains(e.target)) {
+                    saveChanges();
                     document.removeEventListener('click', handleClickOutside);
                 }
             };
-
-            input.onkeydown = (e) => {
-                if (e.key === 'Enter') {
-                    item.text = input.value;
-                    localStorage.setItem('todos', JSON.stringify(todos));
-                    renderTodos();
-                    document.removeEventListener('click', handleClickOutside);
-                }
-            };
-
-            li.replaceChild(input, span);
-            input.focus();
-
+            
             setTimeout(() => {
                 document.addEventListener('click', handleClickOutside);
             }, 0);
@@ -191,6 +212,13 @@ document.getElementById('prevMonth').onclick = () => {
     renderMemo();
     renderTodos();
 };
+document.getElementById('todayBtn').onclick = () => {
+    selectedDate = new Date();
+    renderCalendar();
+    renderMood();
+    renderMemo();
+    renderTodos();
+}
 document.getElementById('nextMonth').onclick = () => {
     selectedDate.setMonth(selectedDate.getMonth() + 1);
     renderCalendar();
