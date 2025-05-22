@@ -18,8 +18,8 @@ body {
   height: 100vh;
   background-color: rgba(37, 113, 69, 0.9);
   background-image:
-    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 20px 20px;
   border-right: 1px solid #eee;
   padding: 20px;
@@ -28,7 +28,7 @@ body {
   top: 0;
   resize: horizontal;
   overflow: auto;
-  box-shadow: 3px 0 15px rgba(0,0,0,0.15);
+  box-shadow: 3px 0 15px rgba(0, 0, 0, 0.15);
 }
 
 #sidebarUserImg {
@@ -39,10 +39,10 @@ body {
   background-color: #ffffff;
   background-size: cover;
   background-position: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   cursor: pointer;
 
- 
+
 }
 
 #sidebarUserImg .edit-icon {
@@ -74,7 +74,7 @@ body {
   height: 80px;
   background-color: #ffffff;
   border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .user-name {
@@ -124,7 +124,8 @@ body {
   font-size: 2.4em;
   margin-bottom: 40px;
   color: #000;
-  margin-left: 20px;  /* MY PAGE 글자 오른쪽으로 이동 */
+  margin-left: 20px;
+  /* MY PAGE 글자 오른쪽으로 이동 */
 }
 
 /* 컨테이너 및 섹션 */
@@ -135,20 +136,28 @@ body {
 }
 
 /* 프로필, 친구 관리, 기분 통계 섹션 */
-.profile, .friends, .mood-stats {
+.profile,
+.friends,
+.mood-stats {
   background: #fff;
   border: 2px solid #547b64;
   border-radius: 10px;
-  padding: 30px 28px 100px;  /* 세로길이 줄이기 */
+  padding: 30px 28px 100px;
+  /* 세로길이 줄이기 */
   flex: 1;
-  min-height: 440px;  
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  min-height: 440px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   position: relative;
-  margin-bottom: 20px; /* 각 섹션 간격 줄이기 */
+  margin-bottom: 20px;
+  /* 각 섹션 간격 줄이기 */
 }
-.profile h2, .friends h2, .mood-stats h2 {
-  margin-bottom: 24px;  
-  margin-top: 0;        /* 위쪽 여백 없애서 좀 더 위로 붙임 */
+
+.profile h2,
+.friends h2,
+.mood-stats h2 {
+  margin-bottom: 24px;
+  margin-top: 0;
+  /* 위쪽 여백 없애서 좀 더 위로 붙임 */
   padding-bottom: 6px;
   border-bottom: 2px solid #c1c3c2;
   color: #222;
@@ -186,7 +195,7 @@ body {
   position: absolute;
   bottom: 28px;
   right: 28px;
-  background-color: rgba(0,0,0,0.07);
+  background-color: rgba(0, 0, 0, 0.07);
   border: 1.5px solid #444;
   color: #222;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -253,7 +262,7 @@ body {
 }
 
 .friends button {
-  background-color: rgba(0,0,0,0.07);
+  background-color: rgba(0, 0, 0, 0.07);
   border: 1.5px solid #444;
   color: #2d1b1b;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -289,5 +298,3 @@ body {
 .logout-btn:hover {
   background-color: #444;
 }
-
-

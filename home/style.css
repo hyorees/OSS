@@ -13,8 +13,8 @@ body {
     height: 100vh;
     background-color: rgba(37, 113, 69, 0.9);
     background-image:
-    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
     background-size: 20px 20px;
     border-right: 1px solid #eee;
     padding: 20px;
@@ -23,28 +23,49 @@ body {
     top: 0;
     resize: horizontal;
     overflow: auto;
-    box-shadow: 3px 0 15px rgba(0,0,0,0.15);
+    box-shadow: 3px 0 15px rgba(0, 0, 0, 0.15);
 }
 
 .profile-section {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    padding: 20px 0;
-    border-bottom: 1px solid #eee;
+    padding: 32px 0 20px 0;
+    border-bottom: 1px solid #e1ffe0;
 }
 
 .profile-image {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    background-color: white;
-    margin-right: 15px;
+    background-color: #fff;
+    border: 2.5px solid #547b64;
+    /* 테두리만 캘린더 테두리 색으로 변경 */
+    margin-bottom: 12px;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='22' r='10' fill='%23547b64'/%3E%3Crect x='15' y='36' width='30' height='16' rx='8' fill='%23547b64'/%3E%3C/svg%3E");
+    /* 아이콘 색상도 캘린더 테두리 색으로 */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60%;
 }
 
 .profile-name {
     font-size: 1.1em;
     font-weight: bold;
-    color: white;
+    color: #4B3F2A;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+    letter-spacing: 0.03em;
+}
+
+/* 밑줄 없애기, 커서 포인터 적용 (특정 클래스) */
+.profile-name,
+.title {
+    text-decoration: none;
+    cursor: pointer;
+    color: inherit;
+    /* 부모 색상 상속 */
 }
 
 .friends-section {
@@ -79,8 +100,17 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #e0e0e0;
+    display: inline-block;
+    background-color: #fff !important;
+    border: 2px solid #547b64;
+    /* 테두리만 캘린더 테두리 색으로 변경 */
     margin-right: 12px;
+    object-fit: cover;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='22' r='10' fill='%23547b64'/%3E%3Crect x='15' y='36' width='30' height='16' rx='8' fill='%23547b64'/%3E%3C/svg%3E");
+    /* 아이콘 색상도 캘린더 테두리 색으로 */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60%;
 }
 
 .friend-name {
@@ -99,44 +129,46 @@ body {
     max-width: calc(100vw - 400px);
     position: relative;
 }
+
 .calendar-section::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 120px;
-        background: url('https://cdn.pixabay.com/photo/2017/08/30/10/30/leaf-2696948_1280.png')
-          center / cover no-repeat;
-        border-radius: 16px 16px 0 0;
-        opacity: 0.2;
-        pointer-events: none;
-        z-index: 0;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: url('https://cdn.pixabay.com/photo/2017/08/30/10/30/leaf-2696948_1280.png') center / cover no-repeat;
+    border-radius: 16px 16px 0 0;
+    opacity: 0.2;
+    pointer-events: none;
+    z-index: 0;
 }
+
 .calendar-section {
     position: relative;
     padding-top: 140px;
     flex: 2 1 600px;
-    min-width: 400px;
-    max-width: 620px;
+    height: 800px;
+    min-width: 500px;
+    max-width: 750px;
     padding: 24px;
     background: white;
-    border-radius: 16px;
+    border-radius: 32px;
     box-shadow: 0 8px 15px rgba(0, 100, 0, 0.2);
     border: 2px solid #547b64;
 }
 
 .todo-section {
     flex: 1.5;
-    min-width: 600px;
-    max-width: 400px;
+    height: 650px;
+    min-width: 400px;
+    max-width: 500px;
     background: #ffffff;
-    border-radius: 16px;
+    border-radius: 32px;
     box-shadow: 0 8px 15px rgba(0, 80, 0, 0.25);
     padding: 24px;
     border: 2px solid #547b64;
 }
-
 
 header {
     display: flex;
@@ -147,9 +179,18 @@ header {
 .profile {
     width: 40px;
     height: 40px;
-    background: #ddd;
     border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid #547b64;
+    display: inline-block;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='22' r='10' fill='%23547b64'/%3E%3Crect x='15' y='36' width='30' height='16' rx='8' fill='%23547b64'/%3E%3C/svg%3E");
+    /* 아이콘 색상 변경 */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60%;
+    object-fit: cover;
 }
+
 
 .title {
     font-weight: bold;
@@ -170,60 +211,54 @@ header {
     gap: 16px;
     margin: 20px 0 10px 0;
     background-color: white;
-    border-radius: 12px; /* 모서리 둥글게 */
-    padding: 5px;       /* 내부 여백 추가하면 더 예쁨 */
-    color: rgb(1, 53, 5);        /* 글자색 대비용 */
-    
+    border-radius: 12px;
+    padding: 5px;
+    color: rgb(1, 53, 5);
 }
 
-
 .calendar {
-    width: 100%;
+    width: 95%;
     border-collapse: collapse;
-    border: 2px solid #547b64;
-    margin-bottom: 10px;
-    border-radius: 12px;       /* 모서리 둥글게 */
-    overflow: hidden;  
+    border: 1.5px solid #547b64;
+    margin-bottom: 4ch;
+    border-radius: 12px;
+    overflow: hidden;
     font-family: 'Noto Sans KR', sans-serif;
-    
-    
 }
 
 .calendar th {
-    background-color: #547b64; /* 진한 초록 */
+    background-color: #547b64;
     color: white;
     font-weight: bold;
-    padding: 8px 0;
-    
-    
+    padding: 6px 0;
 }
 
 .calendar td {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     text-align: center;
     border-radius: 8px;
     cursor: pointer;
-    padding: 5px;
+    padding: 3px;
     position: relative;
-    color: #2e7d32; /* 어두운 초록 */
+    color: #2e7d32;
 }
 
 .calendar td:hover {
-    color: #000801; /* 더 진한 초록 */
+    color: #000801;
     font-size: 1.1em;
     font-weight: bold;
 }
 
 .calendar td.selected {
-    background-color: #388e3c; /* 선택된 날짜 진한 초록 */
+    background-color: #388e3c;
     color: white;
     font-weight: bold;
     text-decoration: underline;
 }
 
 .calendar td.has-mood .mood-icon {
-    color: #055209; /* 아이콘도 초록 계열 */
+    color: #055209;
 }
 
 .calendar tr {
@@ -235,11 +270,10 @@ header {
     bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 1.3em; /* 아이콘 크기 */
-    display: none; /* 기본적으로 아이콘은 보이지 않게 */
+    font-size: 1.3em;
+    display: none;
 }
 
-/* 기분이 있는 날짜에는 아이콘을 보이도록 설정 */
 .calendar td.has-mood .mood-icon {
     display: block;
 }
@@ -256,24 +290,25 @@ header {
     border: none;
 }
 
-.calendar td.sunday{
+.calendar td.sunday {
     color: #ff0000;
 }
 
-.calendar td.sunday:hover{
+.calendar td.sunday:hover {
     color: #a00000;
 }
 
 .mood-select {
     display: flex;
     justify-content: space-between;
-    margin: 10px 0;
+    margin: 0px 0;
     font-size: 2em;
 }
 
 .mood-select span {
     cursor: pointer;
     transition: transform 0.1s;
+    margin: 0;
 }
 
 .mood-select span.selected {
@@ -287,7 +322,7 @@ header {
 }
 
 .memo-section textarea {
-    width: 100%;
+    width: 96%;
     border-radius: 8px;
     border: 1px solid #113c08;
     padding: 8px;
@@ -310,11 +345,13 @@ header {
 .todo-section h2 {
     margin-top: 0;
 }
+
 .todo-section h2::before {
-  content: "🌱";
-  font-size: 1em;
-  margin-right: 8px;
+    content: "🌱";
+    font-size: 1em;
+    margin-right: 8px;
 }
+
 .tabs {
     display: flex;
     gap: 10px;
@@ -333,11 +370,10 @@ header {
     transition: all 0.3s ease;
 }
 
-
 .tab:hover {
-  transform: scale(1.05) translateZ(10px);
-  box-shadow: 0 8px 20px rgba(0, 100, 0, 0.7);
-  transition: all 0.3s ease;
+    transform: scale(1.05) translateZ(10px);
+    box-shadow: 0 8px 20px rgba(0, 100, 0, 0.7);
+    transition: all 0.3s ease;
 }
 
 .tab.active {
@@ -346,7 +382,6 @@ header {
     color: white;
 }
 
-/* 할일 입력 칸 스타일 */
 #todoInput {
     margin-top: 15px;
     width: 85%;
@@ -359,7 +394,7 @@ header {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-#todayBtn{
+#todayBtn {
     padding: 4px 12px;
     background: linear-gradient(135deg, #4caf50, #2e7d32);
     border: none;
@@ -371,7 +406,7 @@ header {
     transition: all 0.3s ease;
 }
 
-#todayBtn:hover{
+#todayBtn:hover {
     background: linear-gradient(135deg, #66bb6a, #388e3c);
     transform: scale(1.05);
 }
@@ -492,7 +527,6 @@ header {
     margin-left: 4px;
 }
 
-/* Add specific styles for edit and delete buttons */
 #todoList li button:first-of-type {
     margin-right: 8px;
 }
@@ -501,7 +535,6 @@ header {
     color: #e57373;
 }
 
-/* Add hover effect for buttons */
 #todoList li button:hover {
     opacity: 0.8;
     transform: scale(1.1);
@@ -521,7 +554,7 @@ header {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: #ceb7b7;
+    background-color: #547b64;
 }
 
 .category-todo h3 {
@@ -552,4 +585,17 @@ header {
     padding: 5px 0;
 }
 
+/* 링크 밑줄 제거 및 커서 변경 적용 (특정 클래스) */
+.profile-name {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: white;
+    /* 유지 */
+}
 
+.profile-name:hover,
+.title:hover {
+    color: #9d9d9d;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
