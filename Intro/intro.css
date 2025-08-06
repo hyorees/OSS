@@ -1,8 +1,8 @@
-html {
+html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-
+  overflow: hidden;
   background: radial-gradient(ellipse at 50% 40%,
       #f5fbe7 0%,
       #e0f2c2 40%,
@@ -12,19 +12,21 @@ html {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-
-  /* 위아래 모서리 어둡게 */
   box-shadow:
     inset 0 40px 120px -20px rgba(90, 125, 90, 0.35),
     inset 0 -40px 120px -20px rgba(90, 125, 90, 0.35),
     inset 0 0 200px 40px rgba(90, 125, 90, 0.18);
 }
 
-body {
-  margin: 0;
-  padding: 0;
+.wrapper {
   height: 100%;
-  background: transparent;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: auto;
+}
+
+.content {
+  min-height: 100%;
   color: white;
   font-family: 'Noto Sans KR', sans-serif;
   display: flex;
@@ -32,7 +34,6 @@ body {
   align-items: center;
   flex-direction: column;
   text-align: center;
-  overflow: hidden;
 }
 
 .icon {
@@ -42,7 +43,6 @@ body {
   transition: opacity 0.5s ease;
 }
 
-/* 제목 */
 h2 {
   font-size: 3rem;
   margin: 0 0 10px 0;
@@ -51,7 +51,6 @@ h2 {
   transition: opacity 0.5s ease;
 }
 
-/* 아래 설명 */
 p {
   font-size: 1.5rem;
   color: #1b230b;
@@ -60,7 +59,6 @@ p {
   transition: opacity 0.5s ease;
 }
 
-/* 시작하기 버튼 */
 .start-btn {
   margin-top: 30px;
   padding: 15px 45px;

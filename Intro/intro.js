@@ -23,7 +23,7 @@ const descEl = document.getElementById('desc');
 const startBtn = document.getElementById('startBtn');
 
 startBtn.addEventListener('click', () => {
-  window.location.href = 'http://127.0.0.1:5500/home/index.html'; 
+  window.location.href = 'home/index.html';
 });
 
 function updateContent(index) {
@@ -67,16 +67,19 @@ window.addEventListener('wheel', e => {
 });
 
 let touchStartY = 0;
+let touchEndY = 0;
 
 window.addEventListener('touchstart', e => {
   touchStartY = e.touches[0].clientY;
 });
 
-window.addEventListener('touchend', e => {
-  const touchEndY = e.changedTouches[0].clientY;
-  const deltaY = touchStartY - touchEndY;
+window.addEventListener('touchmove', e => {
+  touchEndY = e.touches[0].clientY;
+});
 
-  if (Math.abs(deltaY) > 50) { 
+window.addEventListener('touchend', () => {
+  const deltaY = touchStartY - touchEndY;
+  if (Math.abs(deltaY) > 50) {
     if (deltaY > 0) {
       const nextIndex = (currentIndex + 1) % data.length;
       fadeOutIn(nextIndex);
