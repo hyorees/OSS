@@ -89,4 +89,5 @@ window.addEventListener('touchend', () => {
     }
   }
 });
+
 updateContent(0);
