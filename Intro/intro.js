@@ -26,7 +26,6 @@ startBtn.addEventListener('click', () => {
   window.location.href = 'http://127.0.0.1:5500/home/index.html'; 
 });
 
-
 function updateContent(index) {
   iconEl.textContent = data[index].icon;
   titleEl.textContent = data[index].title;
