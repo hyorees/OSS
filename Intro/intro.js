@@ -23,7 +23,7 @@ const descEl = document.getElementById('desc');
 const startBtn = document.getElementById('startBtn');
 
 startBtn.addEventListener('click', () => {
-  window.location.href = 'http://127.0.0.1:5500/home/index.html'; 
+  window.location.href = 'https://github.com/hyorees/OSS.git'; 
 });
 
 function updateContent(index) {
